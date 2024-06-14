@@ -1,0 +1,43 @@
+public class basicLL {
+    public static void display(Node head){
+        Node temp = head;
+        while(temp!=null){
+            System.out.print(temp.data+" ");
+            temp=temp.next;
+        }
+    }
+    public static void displayreverse(Node head){
+        Node temp = head;
+        while(temp!=null){
+            temp=temp.next;
+            System.out.print(temp.data+" ");
+        }
+    }
+    public static int length(Node head){
+        int count=0;
+        Node temp = head;
+        while(temp!=null){
+            count++;
+            temp=temp.next;
+        }
+        return count;
+    }
+    public static class Node{
+        int data;
+        Node next;
+        Node(int data){
+            this.data=data;
+        }
+    }
+    public static void main(String[] args) {
+        Node a = new Node(5);
+        Node b = new Node(3);
+        Node c = new Node(9);
+        a.next = b;
+        b.next = c;
+        display(a);
+        int ans = length(a);
+        System.out.println("length of linkedlist is: "+ans);
+
+    }
+}
