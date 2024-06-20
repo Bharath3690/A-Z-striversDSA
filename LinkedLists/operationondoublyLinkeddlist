@@ -1,0 +1,122 @@
+public class doublyLL {
+    public static class Node{
+        int val;
+        Node next;
+        Node prev;
+        Node(int val){
+            this.val = val;
+        }
+    }
+    public static Node insertathead(Node head,int x){
+        Node t = new Node(x);
+        t.next = head;
+        head.prev = t;
+        head = t;
+        return head;
+    }
+    public static Node insertattail(Node head,int x){
+        Node t = new Node(x);
+        Node temp = head;
+        while(temp.next!=null){
+            temp=temp.next;
+        }
+        temp.next = t;
+        t.prev=temp;
+        return head;
+    }
+    public static Node insertatidx(Node head,int ind,int x){
+        Node s = head;
+        for(int i=1;i<=ind-1;i++){
+            s=s.next;
+        }
+        Node r = s.next;
+        Node t = new Node(x);
+        s.next = t;
+        t.prev = s;
+        t.next = r;
+        r.prev=t;
+
+        return head;
+
+    }
+    public static Node deleteathead(Node head){
+        head = head.next;
+        head.prev = null;
+        return head;
+    }
+    public static Node deleteattail(Node head){
+        Node temp = head;
+        while(temp.next!=null){
+            temp=temp.next;
+        }
+        temp = temp.prev;
+        temp.next=null;
+        return head;
+    }
+    public static Node deleteatind(Node head,int ind){
+        Node temp = head;
+        for(int i=1;i<=ind-1;i++){
+            temp=temp.next;
+        }
+        temp.next = temp.next.next;
+        temp.next.prev=temp;
+        return head;
+    }
+    public static void display(Node head){
+        Node temp = head;
+        while(temp!=null){
+            System.out.print(temp.val+" ");
+            temp=temp.next;
+        }
+        System.out.println();
+
+    }
+    public static void displayrev(Node tail){
+        Node temp = tail;
+        while(temp!=null){
+            System.out.print(temp.val+" ");
+            temp=temp.prev;
+        }
+        System.out.println();
+    }
+    public static void display2(Node rand){
+        Node temp = rand;
+        while(temp.prev!=null){
+            temp = temp.prev;
+        }
+        //temp become head
+        //now print the entire list
+        while(temp!=null){
+            System.out.print(temp.val+" ");
+            temp=temp.next;
+        }
+        System.out.println();
+    }
+    public static void main(String[] args) {
+        Node a = new Node(5);
+        Node b = new Node(3);
+        Node c = new Node(4);
+        a.prev = null;
+        a.next = b;
+        b.prev = a;
+        b.next = c;
+        c.prev = b;
+        c.next = null;
+//        display(a);
+//        displayrev(c);
+//        display2(b);
+        Node newHead = insertathead(a,30);
+        display(newHead);
+        Node newTail = insertattail(a,20);
+        display(newTail);
+        Node inseratind = insertatidx(a,3,45);
+        display(inseratind);
+//        Node delhead = deleteathead(a);
+//        display(delhead);
+//        Node deltail = deleteattail(a);
+//        display(deltail);
+        Node delatind = deleteatind(a,2);
+        display(delatind);
+
+    }
+}
