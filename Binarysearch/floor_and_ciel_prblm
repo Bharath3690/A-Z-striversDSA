@@ -1,0 +1,39 @@
+import java.util.* ;
+import java.io.*; 
+
+public class Solution {
+  static int findfloor(int[] arr,int n,int x){
+    int l = 0,r=n-1,ans=-1;
+    while(l<=r){
+      int mid = l+(r-l)/2;
+      if(arr[mid]<=x){
+        ans = arr[mid];
+        l=mid+1;
+      }else{
+        r=mid-1;
+      }
+    }
+    return ans;
+  }
+  static int findciel(int[] arr,int n,int x){
+    int l = 0,r=n-1,ans=-1;
+    while(l<=r){
+      int mid = l+(r-l)/2;
+      if(arr[mid]>=x){
+        ans = arr[mid];
+        r=mid-1;
+      }else{
+        l=mid+1;
+      }
+    }
+    return ans;
+  }
+    public static int[] getFloorAndCeil(int[] a, int n, int x) {
+      // Wriute your code here.
+      int f = findfloor(a,n,x);
+      int c = findciel(a,n,x);
+      return new int[] {f,c};
+
+    }
+    
+}
