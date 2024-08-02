@@ -1,0 +1,11 @@
+
+class Solution {
+    static void bitManipulation(int num, int i) {
+        // code here
+        int gbit,sbit,cbit;
+        gbit = (num>>(i-1)&1);
+        sbit = (num | (1<<i-1));
+        cbit = (num & ~(1<<i-1));
+        System.out.print(gbit+" "+sbit+" "+cbit);
+    }
+}
