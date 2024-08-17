@@ -1,0 +1,87 @@
+import com.sun.source.tree.Tree;
+
+import java.sql.SQLOutput;
+
+class Node1{
+    int data;
+    Node1 right;
+    Node1 left;
+    Node1(int data){
+        this.data = data;
+        this.right = null;
+        this.left = null;
+    }
+
+}
+
+public class problemsontrees {
+    public static int countOfNodes(Node1 root){
+        if(root==null){
+            return 0;
+        }
+        int leftNodes = countOfNodes(root.left);
+        int rightNodes = countOfNodes(root.right);
+        return leftNodes+rightNodes+ 1;
+    }
+    public static int SumOfNodes(Node1 root){
+        if(root==null){
+            return 0;
+        }
+        int leftsum = SumOfNodes(root.left);
+        int rightsum = SumOfNodes(root.right);
+        return leftsum+rightsum+ root.data;
+    }
+    public static int heightoftree(Node1 root){
+        if(root==null){return 0;}
+        int leftheight = heightoftree(root.left);
+        int rightheight = heightoftree(root.right);
+        int maxheight = Math.max(leftheight,rightheight) +1;
+        return maxheight;
+    }
+    public static int diameter(Node1 root){
+        if(root == null){
+            return 0;
+        }
+        int diam1 = diameter(root.left);
+        int diam2 = diameter(root.right);
+        int diam3 = heightoftree(root.left) + heightoftree(root.right)+1;
+
+        return Math.max(diam3, Math.max(diam1,diam2));
+    }
+    static class TreeInfo {
+        int ht;
+        int diam;
+        TreeInfo(int ht, int diam){
+            this.ht = ht;
+            this.diam = diam;
+        }
+    }
+    public static TreeInfo diameter2(Node1 root){
+        if(root == null){
+            return new TreeInfo(0,0);
+        }
+        TreeInfo left = diameter2(root.left);
+        TreeInfo right = diameter2(root.right);
+        int myheight = Math.max(left.ht,right.ht)+1;
+        int diam1 = left.diam;
+        int diam2 = right.diam;
+        int diam3 = left.ht+ right.ht+1;
+        int mydiam = Math.max(Math.max(diam1,diam2),diam3);
+        TreeInfo myInfo = new TreeInfo(myheight,mydiam);
+        return myInfo;
+    }
+    public static void main(String[] args) {
+        Node1 root = new Node1(1);
+        root.left = new Node1(2);
+        root.right = new Node1(3);
+        root.left.left = new Node1(4);
+        root.left.right = new Node1(5);
+        root.right.left = new Node1(6);
+        root.right.right = new Node1(7);
+        System.out.println("Count Of Nodes: " + countOfNodes(root));
+        System.out.println("Sum of Nodes: "+SumOfNodes(root));
+        System.out.println("Height of Tree: "+heightoftree(root));
+        System.out.println("Diameter of Tree: "+diameter(root));
+        System.out.println("Diameter2 of Tree: "+diameter2(root).diam);
+    }
+}
