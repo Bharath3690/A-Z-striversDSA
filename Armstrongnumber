@@ -1,0 +1,19 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution 
+{
+	public static boolean isArmstrong(int num)
+	{
+	    // wrtie your code here;
+		int k = String.valueOf(num).length();
+		int n = num;
+		int sum=0;
+		while(n>0){
+			int ld = n%10;
+			sum += Math.pow(ld,k);
+			n=n/10;
+		}
+		return sum==num?true:false;
+	}
+}
+
