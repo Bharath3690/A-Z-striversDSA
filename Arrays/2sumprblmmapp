@@ -1,0 +1,23 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static int[] twoSum(int numbers[], int target) {
+        // Write your code here..
+        int ans[] = new int[2];
+        ans[0]=ans[1]=-1;
+        HashMap<Integer,Integer>mpp = new HashMap<>();
+        for(int i=0;i<numbers.length;i++){
+            int num = numbers[i];
+            int mn = target-num;
+            if(mpp.containsKey(mn)){
+                ans[0]=mpp.get(mn);
+                ans[1]=i;
+                return ans;
+            }
+            mpp.put(numbers[i],i);
+        }
+        return ans;
+
+    }
+
+}
