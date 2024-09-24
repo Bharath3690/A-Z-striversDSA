@@ -1,0 +1,71 @@
+/****************************************************************
+
+
+ class Node {
+     public int data;
+     public Node next;
+    
+     Node()
+     {
+         this.data = 0;
+         this.next = null;
+     }
+    
+     Node(int data)
+     {
+         this.data = data;
+         this.next = null;
+     }
+    
+     Node(int data, Node next)
+     {
+         this.data = data;
+         this.next = next;
+     }
+ }
+
+ *****************************************************************/
+
+public class Solution {
+    static Node reverselist(Node head){
+        if(head==null||head.next==null) return head;
+        Node prev = null;
+        Node temp = head;
+        while(temp!=null){
+            Node front = temp.next;
+            temp.next=prev;
+            prev=temp;
+            temp=front;
+        }
+        return prev;
+        // Node newhead=reverselist(head.next);
+        // Node front=head.next;
+        // front.next=head;
+        // head.next=null;
+        // return newhead;
+    }
+    public static boolean isPalindrome(Node head) {
+        // write your code here
+        Node fast = head;
+        Node slow = head;
+        if(head==null || head.next==null) return true;
+        while(fast.next!=null && fast.next.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        Node newhead = reverselist(slow.next);
+        Node first = head;
+        Node second = newhead;
+        while(second!=null){
+            if(first.data!=second.data){
+            reverselist(newhead);
+            return false;
+            }
+            first=first.next;
+            second=second.next;
+        }
+        reverselist(newhead);
+        return true;
+
+    }
+}
