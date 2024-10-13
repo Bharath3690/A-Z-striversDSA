@@ -1,0 +1,48 @@
+public class Solution {
+	static void merge(int[] arr,int low,int mid,int high){
+		int temp[] = new int[high-low+1];
+		int left = low;
+		int right = mid+1;
+		int id = 0;
+		while(left<=mid && right<=high){
+			if(arr[left]<arr[right]){
+			temp[id] = arr[left];
+			id++;
+			left++;
+			}else{
+				temp[id]=arr[right];
+				id++;
+				right++;
+			}
+
+			
+		}
+		while(left<=mid){
+			temp[id]=arr[left];
+			id++;
+			left++;
+		}
+		while(right<=high){
+			temp[id]=arr[right];
+			id++;
+			right++;
+		}
+		for(int i=0;i<temp.length;i++){
+			arr[low+i]=temp[i];
+		}
+
+
+	}
+	static void mgsort(int[] arr, int low,int high){
+		if(low>=high) return;
+		int mid = (low+high)/2;
+		mgsort(arr,low,mid);
+		mgsort(arr,mid+1,high);
+		merge(arr,low,mid,high);
+	}
+	public static void mergeSort(int[] arr, int n) {
+		// Write your code here.
+		mgsort(arr,0,n-1);
+		
+	}
+}
