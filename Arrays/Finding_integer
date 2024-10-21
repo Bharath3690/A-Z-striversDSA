@@ -1,0 +1,21 @@
+import java.util.* ;
+import java.io.*; 
+
+public class Solution {
+	public static int findInteger(int n, int k) {
+		int mid = n/2;
+		if(n%2!=0){
+			mid+=1;
+		}
+		if(k<=mid){
+			return 2*k-1;
+		}else{
+			k=k-mid;
+			return 2*k;
+		}
+
+
+
+	}
+
+}
