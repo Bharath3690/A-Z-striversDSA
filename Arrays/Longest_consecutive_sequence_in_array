@@ -1,0 +1,28 @@
+import java.io.*;
+import java.util.* ;
+
+public class Solution {
+    public static int lengthOfLongestConsecutiveSequence(int[] arr, int N) {
+        // Write your code here.
+        if(N==0) return 0;
+        int cnt = 0;
+        int longest = 1;
+        Set<Integer> st = new HashSet<>();
+          for (int i = 0; i < N; i++) {
+            st.add(arr[i]);
+        }
+        for(int it:st){
+            if(!st.contains(it-1)){
+                int x = it;
+                cnt = 1;
+                while(st.contains(x+1)){
+                    x=x+1;
+                    cnt = cnt+1;
+                }
+                longest = Math.max(longest,cnt);
+            }
+        }
+        return longest;
+
+    }
+}
