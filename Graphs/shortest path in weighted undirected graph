@@ -1,0 +1,57 @@
+class Solution {
+    public List<Integer> shortestPath(int n, int m, int edges[][]) {
+        //  Code Here.
+        List<List<int[]>> adj = new ArrayList<>();
+        for(int i=0;i<=n;i++){
+            adj.add(new ArrayList<>());
+        }
+        for(int[] edge:edges){
+            int u = edge[0];
+            int v = edge[1];
+            int w = edge[2];
+            adj.get(u).add(new int[]{v,w});
+            adj.get(v).add(new int[]{u,w});
+        }
+        int[] dist = new int[n+1];
+        int[] parent = new int[n+1];
+        PriorityQueue<int[]>pq = new PriorityQueue<>(Comparator.comparingInt(a->a[1]));
+        Arrays.fill(dist,Integer.MAX_VALUE);
+        Arrays.fill(parent,-1);
+        dist[1] = 0;
+        pq.add(new int[]{1,0});
+        while(!pq.isEmpty()){
+            int[] current = pq.poll();
+            int u = current[0];
+            int currdist = current[1];
+            if(currdist>dist[u]){
+                continue;
+            }
+            for(int[] neigh:adj.get(u)){
+                int v = neigh[0];
+                int weight = neigh[1];
+                if(dist[v]>dist[u]+weight){
+                    dist[v]= dist[u]+weight;
+                    parent[v] = u;
+                    pq.add(new int[]{v,dist[v]});
+                }
+            }
+        }
+        if(dist[n]==Integer.MAX_VALUE){
+            return Collections.singletonList(-1);
+        }
+            List<Integer> ans = new ArrayList<>();
+            int temp = n;
+            while(temp!=-1){
+                ans.add(temp);
+                temp = parent[temp];
+            }
+            Collections.reverse(ans);
+            List<Integer> result = new ArrayList<>();
+            result.add(dist[n]);
+            result.addAll(ans);
+
+            return result;
+                
+        
+    }
+}
