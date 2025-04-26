@@ -1,0 +1,54 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class DFSTraversal {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("No of vertices: ");
+        int Nodes = sc.nextInt();
+        System.out.println("No of Edges: ");
+        int Edges = sc.nextInt();
+        ArrayList<ArrayList<Integer>> adjList = new ArrayList<>(Nodes);
+        for(int i=0;i<=Nodes;i++){
+            adjList.add(new ArrayList<>());
+        }
+        System.out.println("ENter the edges (paired) ");
+        for(int i=0;i<Edges;i++){
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            adjList.get(u).add(v);
+            adjList.get(v).add(u);
+        }
+        for(int i=0;i<=Nodes;i++){
+            System.out.print(i+":");
+            for(int j=0;j<adjList.get(i).size();j++){
+                System.out.print(adjList.get(i).get(j)+" ");
+            }
+            System.out.println();
+        }
+        System.out.println("Enter the starting dfs element: ");
+        int dfselement = sc.nextInt();
+        ArrayList<Integer> ans = dfsgraph(dfselement,adjList);
+        int len = ans.size();
+        for(int i=0;i<len;i++){
+            System.out.println(ans.get(i)+" ");
+        }
+
+    }
+    public static void dfs(int node,boolean[] vis,ArrayList<ArrayList<Integer>> adj,ArrayList<Integer> ls){
+        vis[node] = true;
+        ls.add(node);
+        for(Integer it: adj.get(node)){
+            if(!vis[it]){
+                dfs(it,vis,adj,ls);
+            }
+        }
+    }
+    public static ArrayList<Integer> dfsgraph(int v,ArrayList<ArrayList<Integer>> adj){
+        boolean[] vis = new boolean[adj.size()+1];
+        ArrayList<Integer> ls = new ArrayList<>();
+        vis[0] = true;
+        dfs(0,vis,adj,ls);
+        return ls;
+    }
+}
