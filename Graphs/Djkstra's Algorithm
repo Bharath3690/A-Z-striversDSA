@@ -1,0 +1,39 @@
+class Solution {
+    public int[] dijkstra(int V, int[][] edges, int src) {
+        // code here
+        List<List<int[]>>adj = new ArrayList<>();
+        for(int i=0;i<V;i++){
+            adj.add(new ArrayList<>());
+        }
+        for(int[] edge:edges){
+            int u = edge[0];
+            int v = edge[1];
+            int w = edge[2];
+            adj.get(u).add(new int[]{v,w});
+            adj.get(v).add(new int[]{v,w});
+        }
+        int dist[] = new int[V];
+        Arrays.fill(dist,Integer.MAX_VALUE);
+        dist[src] =0;
+        PriorityQueue<int[]>pq =new PriorityQueue<>(Comparator.comparingInt(a->a[1]));
+        pq.add(new int[]{src,0});
+        while(!pq.isEmpty()){
+            int[] curr = pq.poll();
+            int u = curr[0];
+            int currdist = curr[1];
+            if(currdist>dist[u]){
+                continue;
+            }
+            for(int[] neigh:adj.get(u)){
+                int v = neigh[0];
+                int weight = neigh[1];
+                if(dist[v]>dist[u]+weight){
+                    dist[v] = dist[u]+weight;
+                    pq.add(new int[]{v,dist[v]});
+                }
+            }
+            
+        }
+        return dist;
+    }
+}
