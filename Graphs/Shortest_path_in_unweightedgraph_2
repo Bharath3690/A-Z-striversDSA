@@ -1,0 +1,71 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.*;
+
+public class Shortestpathinunweightedgraph {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("No of vertices: ");
+        int Nodes = sc.nextInt();
+        System.out.println("No of Edges: ");
+        int Edges = sc.nextInt();
+        ArrayList<ArrayList<Integer>> adjList = new ArrayList<>(Nodes);
+        for(int i=0;i<=Nodes;i++){
+            adjList.add(new ArrayList<>());
+        }
+        System.out.println("ENter the edges (paired) ");
+        for(int i=0;i<Edges;i++){
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            adjList.get(u).add(v);
+            adjList.get(v).add(u);
+        }
+        for(int i=0;i<=Nodes;i++){
+            System.out.print(i+":");
+            for(int j=0;j<adjList.get(i).size();j++){
+                System.out.print(adjList.get(i).get(j)+" ");
+            }
+            System.out.println();
+        }
+        System.out.println("Enter the source node");
+        int src = sc.nextInt();
+        System.out.println("Enter the destination node");
+        int dest = sc.nextInt();
+        int[] vis = new int[Nodes+1];
+        int[] par = new int[Nodes+1];
+        Arrays.fill(vis,0);
+        Arrays.fill(par,-1);
+        int ans = minimumdistance(src,dest,adjList,vis,par);
+        System.out.println(ans);
+    }
+    public static int minimumdistance(int src,int dest,ArrayList<ArrayList<Integer>> adj,int[] vis,int[] par){
+        Queue<Integer> q = new LinkedList<>();
+        q.add(src);
+        vis[src] = 1;
+        boolean found = false;
+        while(!q.isEmpty()){
+            int curr = q.poll();
+            for(int neigh:adj.get(curr)) {
+                if (vis[neigh] == 0) {
+                    vis[neigh] = 1;
+                    par[neigh] = curr;
+                    q.add(neigh);
+                }
+            }
+            if(curr==dest){
+                found = true;
+                break;
+            }
+        }
+        if(!found){
+            return -1;
+        }
+        int cnt = 0;
+        int temp = dest;
+        while(temp!=-1){
+            cnt++;
+            temp = par[temp];
+        }
+        return cnt-2;
+    }
+}
