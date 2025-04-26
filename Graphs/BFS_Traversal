@@ -1,0 +1,51 @@
+import java.util.*;
+
+public class BFSTraversal {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("No of vertices: ");
+        int Nodes = sc.nextInt();
+        System.out.println("No of Edges: ");
+        int Edges = sc.nextInt();
+        ArrayList<ArrayList<Integer>> adjList = new ArrayList<>(Nodes);
+        for(int i=0;i<=Nodes;i++){
+            adjList.add(new ArrayList<>());
+        }
+        System.out.println("ENter the edges (paired) ");
+        for(int i=0;i<Edges;i++){
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            adjList.get(u).add(v);
+            adjList.get(v).add(u);
+        }
+        for(int i=0;i<=Nodes;i++){
+            System.out.print(i+":");
+            for(int j=0;j<adjList.get(i).size();j++){
+                System.out.print(adjList.get(i).get(j)+" ");
+            }
+            System.out.println();
+        }
+        int bfsele = sc.nextInt();
+        System.out.println("BFS traversal starting from "+bfsele);
+        BFS(adjList,bfsele);
+
+    }
+    public static void BFS(ArrayList<ArrayList<Integer>> adj, int s){
+        boolean[] vis = new boolean[adj.size()];
+        vis[s] = true;
+        Queue<Integer> q = new LinkedList<>();
+        q.add(s);
+        while(!q.isEmpty()){
+            s= q.poll();
+            System.out.print(s+" ");
+            for(int n : adj.get(s)){
+                if(!vis[n]){
+                    vis[n] = true;
+                    q.add(n);
+                }
+            }
+        }
+
+
+    }
+}
