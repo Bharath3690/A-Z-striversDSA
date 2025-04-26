@@ -1,0 +1,22 @@
+class Solution {
+    // Function to find the shortest path from a source node to all other nodes
+    public int[] shortestPath(ArrayList<ArrayList<Integer>> adj, int src) {
+        // code here
+        int v = adj.size();
+        Queue<Integer>q =  new LinkedList<>();
+        int[] dist = new int[v];
+        Arrays.fill(dist,-1);
+        q.add(src);
+        dist[src] = 0;
+        while(!q.isEmpty()){
+            int curr = q.poll();
+            for(int neigh:adj.get(curr)){
+                if(dist[neigh]==-1){
+                    dist[neigh] = dist[curr]+1;
+                    q.add(neigh);
+                }
+            }
+        }
+        return dist;
+    }
+}
