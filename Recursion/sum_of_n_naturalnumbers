@@ -1,0 +1,10 @@
+class Main {
+    public static void main(String[] args) {
+        int ans = sumofnum(5);
+        System.out.print(ans);
+    }
+    public static int sumofnum(int n){
+        if(n==1) return 1;
+        return sumofnum(n-1)+n;
+    }
+}
