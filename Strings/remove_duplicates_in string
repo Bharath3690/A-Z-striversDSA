@@ -1,0 +1,17 @@
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        String s = "hello";
+        Set<Character>seen = new HashSet<>();
+        StringBuilder res = new StringBuilder();
+        for(char ch:s.toCharArray()){
+            if(!seen.contains(ch)){
+                seen.add(ch);
+                res.append(ch);
+            }
+        }
+        System.out.println(res.toString());
+        
+    }
+    
+}
