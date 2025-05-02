@@ -1,0 +1,13 @@
+
+class Main {
+    public static void main(String[] args) {
+       String str= "Hello world welcome to college";
+       String[] words = str.split(" ");
+       StringBuilder res = new StringBuilder();
+       for(String word:words){
+           StringBuilder rev = new StringBuilder(word);
+           res.append(rev.reverse().toString()).append(" ");    
+        }
+        System.out.print(res.toString().trim());
+    }
+}
