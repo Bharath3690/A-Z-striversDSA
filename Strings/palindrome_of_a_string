@@ -1,0 +1,17 @@
+class Main {
+    public static void main(String[] args) {
+        String s = "radar";
+        System.out.print(ispalin(s));
+        
+    }
+    public static boolean ispalin(String s){
+        int l = 0,r=s.length()-1;
+        while(l<r){
+            if(s.charAt(l)!=s.charAt(r)) return false;
+            l++;
+            r--;
+        }
+        return true;
+    }
+    
+}
