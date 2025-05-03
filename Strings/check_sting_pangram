@@ -1,0 +1,16 @@
+class Solution {
+    public boolean checkIfPangram(String sentence) {
+        int len = sentence.length();
+        char[] cha = sentence.toCharArray();
+        boolean[] seen  = new boolean[26];
+        int cnt= 0;
+        for(char c:cha){
+            int ind = c-'a';
+            if(!seen[ind]){
+                seen[ind] = true;
+                cnt++;
+            }
+        }
+        return cnt==26;
+    }
+}
