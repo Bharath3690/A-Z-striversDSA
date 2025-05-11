@@ -1,0 +1,19 @@
+class Solution {
+    public int maxFreqSum(String s) {
+       Map<Character,Integer>mpp = new HashMap<>();
+       for(Character ch:s.toCharArray()){
+           mpp.put(ch,mpp.getOrDefault(ch,0)+1);
+       }
+       String vowels = "aeiou";
+        int maxv = 0,maxc = 0;
+       for(char c:mpp.keySet()){
+           int cnt = mpp.get(c);
+           if(vowels.indexOf(c)!=-1){
+               maxv = Math.max(maxv,cnt);
+           }else{
+               maxc = Math.max(maxc,cnt);
+           }
+       }
+       return maxv+maxc;
+    }
+}
