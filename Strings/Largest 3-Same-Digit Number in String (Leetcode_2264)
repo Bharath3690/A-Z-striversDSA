@@ -1,0 +1,15 @@
+class Solution {
+    public String largestGoodInteger(String num) {
+        String maxgood = "";
+        for(int i=0;i<=num.length()-3;i++){
+            String substr = num.substring(i,i+3);
+            if(substr.charAt(0)==substr.charAt(1)&&substr.charAt(1)==substr.charAt(2)){
+                if(maxgood.isEmpty()||substr.compareTo(maxgood)>0){
+                    maxgood = substr;
+                }
+            }
+        }
+        return maxgood;
+
+    }
+}
