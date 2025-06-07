@@ -1,0 +1,64 @@
+class UnionFind {
+    private int[] parent; // Parent of each element
+    private int[] rank;   // Rank (approximate depth) of each tree
+    private int count;    // Number of disjoint sets
+
+    // Initialize with n elements, each in its own set
+    public UnionFind(int n) {
+        parent = new int[n];
+        rank = new int[n];
+        count = n;
+        for (int i = 0; i < n; i++) {
+            parent[i] = i; // Each element is its own parent initially
+            rank[i] = 0;   // Initial rank is 0
+        }
+    }
+
+    // Find the root of the set containing element x with path compression
+    public int find(int x) {
+        if (parent[x] != x) {
+            parent[x] = find(parent[x]); // Path compression: make node point to root
+        }
+        return parent[x];
+    }
+
+    // Merge the sets containing x and y (union by rank)
+    public void union(int x, int y) {
+        int rootX = find(x);
+        int rootY = find(y);
+        if (rootX != rootY) {
+            // Union by rank
+            if (rank[rootX] < rank[rootY]) {
+                parent[rootX] = rootY;
+            } else if (rank[rootX] > rank[rootY]) {
+                parent[rootY] = rootX;
+            } else {
+                parent[rootY] = rootX;
+                rank[rootX]++;
+            }
+            count--; // Decrease the number of sets
+        }
+    }
+
+    // Check if x and y are in the same set
+    public boolean connected(int x,int y) {
+        return find(x) == find(y);
+    }
+
+    // Return the number of disjoint sets
+    public int getCount() {
+        return count;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        UnionFind uf = new UnionFind(5); // 5 elements: 0, 1, 2, 3, 4
+        uf.union(0, 1); // Connect 0 and 1
+        uf.union(1, 2); // Connect 1 and 2
+        uf.union(2, 3); // Connect 2 and 3
+        System.out.println("Root of 3: " + uf.find(3)); // Triggers path compression
+        System.out.println("Connected(0, 3): " + uf.connected(0, 3)); // true
+        System.out.println("Number of sets: " + uf.getCount()); // 2
+    }
+}
